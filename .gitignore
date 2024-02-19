@@ -1,0 +1,17 @@
+*backup*
+wandb/
+plots/
+checkpoint/
+*pycache*
+*ipynb_checkpoints*
+*.tar*
+*dataset*
+*.swp
+*.h5
+*.pkl
+*temp*
+*.dataset
+data/
+sessions/*
+smiles2pcp.pickle
+*.html
