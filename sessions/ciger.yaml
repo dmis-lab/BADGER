@@ -1,0 +1,100 @@
+dev_mode:
+  debugging: false
+  toy_test: false
+
+wandb:
+  project_name: Baseline
+  session_name: ciger
+  group_name: cell
+
+ddp:
+  port: 12365
+
+path:
+  dataset: data
+  checkpoint: checkpoint
+
+dataprep:
+  label_type: real 
+  split_type: cell_id
+  selection:  
+ 
+  filter_qc: true
+  filter_tas: 0.2
+
+  use_pert_id: false
+  use_pert_type: false
+  use_cell_id: true
+  use_pert_idose: false
+  baseline_default: false
+
+experiment:
+  folds: 5
+  fold_num: 0
+  test_mode: false
+  random_seed: 88
+  dataset: badger # fixed
+  analysis_mode: false
+  train_subsample: false
+
+model_params:
+  pred_model: ciger 
+  gene_embed: go
+  drug_embed: neural
+  cell_embed: similarity # None
+  hidden_dim: 128
+  dropout_rate: 0.1
+
+  chemberta:
+    model_name: DeepChem/ChemBERTa-77M-MTR # seyonec/ChemBERTa-zinc-base-v1, DeepChem/ChemBERTa-77M-MLM
+
+  badger:
+    light_mode: False # If True, only xmab-gsab. Else, pathmab-signmab-gsab 
+    drugcell_fusion: # leave it blank (default is early fusion)
+    drug_pooled: True
+
+    xmab: 
+      num_heads: 4
+      attn_option: scaled_dot
+
+    pathmab:
+      num_heads: 4 
+      attn_option: scaled_dot
+      path_embed: random #kegg # random
+
+    signmab:
+      num_heads: 4 
+      attn_option: scaled_dot 
+      gene_embed: # just leave it blank
+
+    gsab:
+      model_name: #just leave it blank (it's sab)
+      num_heads: 4 
+      attn_option: scaled_dot
+      num_blocks: 1 # at least one 
+
+      isab: #only for isab, will be deprecated
+        num_ipoints: 100
+      
+      attn_supervised: diag # diag, string_ppi_scale, ppi
+
+  baseline_default: true
+
+train_params:
+  batch_size: 32
+  num_epochs: 100
+  learning_rate: 0.0001
+  weight_decay: 0.0
+  loss_function: list_wise_rankcosine 
+
+  point_wise_shrinkage:
+    a_coef: 10
+    c_coef: 0.2
+  main_coef: 1.0
+  badger:
+    pathmab_coef: 0.0
+    genesab_coef: 0.0
+    gene_spreadout_coef: 0.1
+  early_patience: 10
+  best_criteria_metric: dge/pos/ndcg
+  baseline_default: false 

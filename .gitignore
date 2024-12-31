@@ -1,0 +1,10 @@
+*backup*
+wandb/
+*pycache*
+*.tar*
+*.swp
+*.h5
+*.pkl
+data/
+sessions/*
+*.gitattributes

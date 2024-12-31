@@ -1,0 +1,25 @@
+name: badger
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10.14
+  - pip=24.2
+  - numpy=1.26.3
+  - pandas=2.2.2
+  - matplotlib=3.9.2
+  - scikit-learn=1.5.1
+  - scipy=1.14.1
+  - pip:
+    - torch==2.4.0
+    - torchvision==0.19.0
+    - torchaudio==2.4.0
+    - pytorch-lightning==2.4.0
+    - transformers==4.44.2
+    - rdkit==2024.3.5
+    - wandb==0.17.9
+    - omegaconf==2.3.0
+    - lifelines==0.29.0
+    - torch-geometric==2.5.0
+    - selfies==2.1.1
+prefix: /home/hajung/anaconda3/envs/badger
