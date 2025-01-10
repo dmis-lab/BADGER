@@ -1,0 +1,108 @@
+dev_mode:
+  debugging: false
+  toy_test: false
+wandb:
+  project_name: Baseline
+  session_name: mlp
+  group_name: pert
+ddp:
+  port: 11111
+path:
+  dataset: data
+  checkpoint: checkpoint
+dataprep:
+  label_type: real
+  split_type: pert_id
+  selection: null
+  filter_qc: true
+  filter_tas: 0.2
+  use_pert_id: false
+  use_pert_type: false
+  use_cell_id: false
+  use_pert_idose: false
+  baseline_default: false
+experiment:
+  folds: 5
+  fold_num: 0
+  test_mode: false
+  random_seed: 88
+  dataset: badger
+  analysis_mode: false
+  train_subsample: false
+model_params:
+  pred_model: mlp
+  gene_embed: gene2vec
+  drug_embed: chemberta
+  cell_embed: similarity
+  hidden_dim: 128
+  dropout_rate: 0.1
+  chemberta:
+    model_name: DeepChem/ChemBERTa-77M-MTR
+  badger:
+    light_mode: false
+    plus_ultra: false
+    with_gsab: true
+    drugcell_fusion: null
+    drug_pooled: true
+    decoder_multiway: false
+    xmab:
+      num_heads: 2
+      attn_option: additive
+      same_linear: true
+      norm_method: set_norm
+      norm_affine: true
+      clean_path: true
+    pathmab:
+      num_heads: 2
+      attn_option: additive
+      same_linear: true
+      norm_method: set_norm
+      norm_affine: true
+      clean_path: true
+      path_embed: msig
+    signmab:
+      num_heads: 2
+      attn_option: additive
+      same_linear: true
+      norm_method: set_norm
+      norm_affine: true
+      clean_path: true
+      gene_embed: gene2vec
+    gsab:
+      model_name: null
+      num_blocks: 1
+      num_heads: 2
+      attn_option: scaled_dot
+      same_linear: true
+      norm_method: set_norm
+      norm_affine: true
+      clean_path: true
+      isab:
+        num_ipoints: 100
+      attn_supervised: none
+    plusmab:
+      model_name: null
+      num_heads: 2
+      attn_option: additive
+      same_linear: true
+      norm_method: set_norm
+      norm_affine: true
+      clean_path: true
+  baseline_default: false
+train_params:
+  batch_size: 32
+  num_epochs: 100
+  learning_rate: 0.0001
+  weight_decay: 0.0
+  loss_function: hybrid_cosine_mse
+  point_wise_shrinkage:
+    a_coef: 10
+    c_coef: 0.2
+  main_coef: 1.0
+  badger:
+    pathmab_coef: 0.05
+    genesab_coef: 0.0
+    gene_spreadout_coef: 0.0
+  early_patience: 10
+  best_criteria_metric: dge/pos/ndcg
+  baseline_default: false

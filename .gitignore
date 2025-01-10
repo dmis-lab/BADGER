@@ -6,5 +6,4 @@ wandb/
 *.h5
 *.pkl
 data/
-sessions/*
 *.gitattributes
